@@ -1,6 +1,5 @@
 var fs = require('fs');
 var path = require('path');
-var util = require('util');
 var lodash = require('lodash');
 var Promise = require('bluebird');
 var EventEmitter = require('events').EventEmitter;
