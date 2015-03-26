@@ -1,6 +1,6 @@
 {
     "name": "watchree",
-    "version": "0.1.1",
+    "version": "0.1.3",
     "description": "File tree watcher",
     "main": "index.js",
     "scripts": {
@@ -24,7 +24,7 @@
         "pretty-hrtime": "^1.0.0"
     },
     "engines": {
-        "iojs": ">= 1.5"
+        "node": ">= 0.10"
     },
     "repository" :{
         "type" : "hg",

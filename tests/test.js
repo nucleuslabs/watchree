@@ -8,7 +8,7 @@ var start = process.hrtime();
 
 watchTree(__dirname)
     .on('ready', function(files) {
-        console.log(`created watch on ${numeral(files.length).format('0,0')} files in ${prettyTime(process.hrtime(start))}`);
+        console.log("created watch on " + numeral(files.length).format("0,0") + " files in " + prettyTime(process.hrtime(start)));
     })
     .on('modify',function(file) {
         dump('modify',file);
