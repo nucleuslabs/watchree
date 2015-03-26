@@ -1,0 +1,29 @@
+{
+    "name": "watchree",
+    "version": "0.1.0",
+    "description": "File tree watcher",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "watch",
+        "inotify",
+        "fs",
+        "tree",
+        "file"
+    ],
+    "author": "Mark Penner",
+    "license": "MIT",
+    "dependencies": {
+        "bluebird": "^2.9.15",
+        "lodash": "^3.6.0"
+    },
+    "devDependencies": {
+        "numeral": "^1.5.3",
+        "pretty-hrtime": "^1.0.0"
+    },
+    "engines": {
+        "iojs": ">= 1.5"
+    }
+}
