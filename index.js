@@ -5,16 +5,12 @@ var Promise = require('bluebird');
 var EventEmitter = require('events').EventEmitter;
 var statAsync = Promise.promisify(fs.stat);
 
-// TODO: move these into options
-var ignoreFiles = /^hg-|(^|[\/\\])(\.|Thumbs\.db$|nohup\.out$)|___jb_(old|bak)___$|\.(pyc|tar\.gz|orig)$/;
-var ignoreDirs = /^(node_modules|bower_components|sql|artifacts|session|logs|cache|plugins\/ezc)$|(^|[\/\\])\./;
-
-
-
 module.exports = function watchTree(dir, options) {
     options = lodash.defaults(options || {}, {
         base: process.cwd(),
-        wait: 10
+        wait: 10,
+        excludeFiles: /^hg-|(^|[\/\\])(\.|Thumbs\.db$)|___jb_(old|bak)___$|\.(pyc|orig)$/,
+        excludeDirs: /(^|[\/\\])\./
         // add `fields` option like watchman; https://github.com/facebook/watchman/tree/master/node
         // [name, is_dir, size, inode, atime, mtime, ctime] etc
     });
@@ -77,13 +73,13 @@ module.exports = function watchTree(dir, options) {
                 var relpath = path.relative(options.base,dir);
 
                 if(stat.isDirectory()) {
-                    if(ignoreDirs.test(relpath)) return resolve();
+                    if(options.excludeDirs.test(relpath)) return resolve();
 
                     isDir[relpath] = true;
 
                     fs.watch(dir, function(event, filename) {
                         var relfile = path.join(relpath, filename);
-                        if(!ignoreFiles.test(relfile)) {
+                        if(!options.excludeFiles.test(relfile)) {
                             pendingChanges[relfile] = true;
                             handler();
                         }
@@ -99,7 +95,7 @@ module.exports = function watchTree(dir, options) {
                         Promise.settle(watchers).then(resolve);
                     });
                 } else {
-                    if(!ignoreFiles.test(relpath)) {
+                    if(!options.excludeFiles.test(relpath)) {
                         isDir[relpath] = false;
                         fileList.push(relpath);
                     }
