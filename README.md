@@ -44,3 +44,7 @@ watchTree(__dirname)
         console.log('created, modified or deleted',files);
     });
 ```
+
+## License
+
+watchree is made available under the terms of the MIT license. See the LICENSE file that accompanies this distribution for the full text of the license.
