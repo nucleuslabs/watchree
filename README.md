@@ -27,7 +27,10 @@ npm install watchree --save-dev
 ```javascript
 var watchTree = require('watchree');
 
-watchTree(__dirname)
+watchTree(__dirname, {
+    excludeFiles: /^hg-|(^|[\/\\])(\.|Thumbs\.db$|nohup\.out$)|___jb_(old|bak)___$|\.(pyc|tar\.gz|orig)$/,
+    excludeDirs: /^(node_modules|bower_components|sql|artifacts|session|logs|cache|plugins\/ezc)$|(^|[\/\\])\./
+})
     .on('ready', function(files) {
         console.log('watch initialized on '+files.length+' files');
     })

@@ -25,5 +25,9 @@
     },
     "engines": {
         "iojs": ">= 1.5"
+    },
+    "repository" :{
+        "type" : "hg",
+        "url" : "ssh://hg@bitbucket.org/nucleuslabs/watchree"
     }
 }
