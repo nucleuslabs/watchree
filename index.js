@@ -19,6 +19,15 @@ module.exports = function watchTree(dir, options) {
     var emitter = new EventEmitter();
     var isDir = {};
     var fileList = [];
+    var paused = false;
+
+    emitter.pause = function() {
+        paused = true;
+    };
+
+    emitter.unpause = function() {
+        paused = false;
+    };
 
     var handler = lodash.debounce(function() {
         var deleted = [];
@@ -81,7 +90,9 @@ module.exports = function watchTree(dir, options) {
                         var relfile = path.join(relpath, filename);
                         if(!options.excludeFiles.test(relfile)) {
                             pendingChanges[relfile] = true;
-                            handler();
+                            if(!paused) {
+                                handler();
+                            }
                         }
                     });
 
